@@ -22,7 +22,7 @@ This is a bot for a smartphone shop. Using telegram bot API, it can be used to o
 - 📝 About us
 - 📝 About the bot
 
-## Cart menu
+### Cart menu
 
 - 📦 Cart
 - 📝 Order
