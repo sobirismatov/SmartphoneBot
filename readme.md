@@ -40,6 +40,7 @@ This is a bot for a smartphone shop. Using telegram bot API, it can be used to o
 
 ### Under each brand
 
+- 🌄 Photo
 - 📱 Model
 - 💵 Price
 - 📦 Add to cart
