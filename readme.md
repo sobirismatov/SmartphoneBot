@@ -11,6 +11,23 @@ This is a bot for a smartphone shop. Using telegram bot API, it can be used to o
 - 📞 Contact
 - 📝 About
 
+### Contact menu
+
+- 📞 Phone number
+- 📧 Email
+- 📌 Address
+
+### About menu
+
+- 📝 About us
+- 📝 About the bot
+
+## Cart menu
+
+- 📦 Cart
+- 📝 Order
+- 📝 Clear cart
+
 ### Shop menu
 
 - Apple
