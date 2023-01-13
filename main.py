@@ -53,7 +53,13 @@ def contact(update: Update, context: CallbackContext):
 
 def query(update: Update, context: CallbackContext):
     query = update.callback_query
+    chat_id = query.message.chat_id
     data = query.data
+    bot = context.bot
+    if data=='number':
+        bot.sendMessage(text='+123456',chat_id=chat_id)
+
+    query.answer('Hi')
     print(data)
     
 
