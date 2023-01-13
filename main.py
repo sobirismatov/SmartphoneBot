@@ -1,5 +1,5 @@
-from telegram.ext import Updater,CommandHandler,CallbackContext,MessageHandler,Filters
-from telegram import Update,ReplyKeyboardMarkup
+from telegram.ext import Updater,CommandHandler,CallbackContext,MessageHandler,Filters,CallbackQueryHandler
+from telegram import Update,ReplyKeyboardMarkup,KeyboardButton,InlineKeyboardMarkup,InlineKeyboardButton
 import os
 
 # get token from env
@@ -35,11 +35,34 @@ def about(update: Update, context: CallbackContext):
     reply_markup=keyboar
     )
 
+def contact(update: Update, context: CallbackContext):
+    chat_id = update.message.chat.id
+
+    keyboar = InlineKeyboardMarkup([
+        [InlineKeyboardButton(text='📞 Phone number',callback_data='number')],
+        # [InlineKeyboardButton(text='📞 Phone number',url='txt')]
+        
+    ])
+    bot = context.bot
+    bot.sendMessage(
+    chat_id=chat_id,
+    text='Assalom alaykum xush kelibsiz botimizga 👍',
+    reply_markup=keyboar
+    )
+
+def query(update: Update, context: CallbackContext):
+    print('Query')
+    pass
+
+
+
 updater = Updater(token=TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start',start))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📝 About'),about))
+updater.dispatcher.add_handler(MessageHandler(Filters.text('📞 Contact'),contact))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('Main menu'),start))
+updater.dispatcher.add_handler(CallbackQueryHandler(query))
 
 updater.start_polling()
 updater.idle()
