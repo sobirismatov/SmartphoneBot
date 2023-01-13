@@ -40,6 +40,7 @@ def contact(update: Update, context: CallbackContext):
 
     keyboar = InlineKeyboardMarkup([
         [InlineKeyboardButton(text='📞 Phone number',callback_data='number')],
+        [InlineKeyboardButton(text='📍 Location',callback_data='location')],
         # [InlineKeyboardButton(text='📞 Phone number',url='txt')]
         
     ])
@@ -51,8 +52,10 @@ def contact(update: Update, context: CallbackContext):
     )
 
 def query(update: Update, context: CallbackContext):
-    print('Query')
-    pass
+    query = update.callback_query
+    data = query.data
+    print(data)
+    
 
 
 
