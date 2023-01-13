@@ -21,10 +21,25 @@ def start(update: Update, context: CallbackContext):
     reply_markup=keyboar
     )
 
+def about(update: Update, context: CallbackContext):
+    chat_id = update.message.chat.id
+
+    keyboar = ReplyKeyboardMarkup([
+        ['📝 About Us','📝 About the bot'],
+        ['Main menu']
+    ])
+    bot = context.bot
+    bot.sendMessage(
+    chat_id=chat_id,
+    text='Assalom alaykum xush kelibsiz botimizga 👍',
+    reply_markup=keyboar
+    )
 
 updater = Updater(token=TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start',start))
+updater.dispatcher.add_handler(MessageHandler(Filters.text('📝 About'),about))
+updater.dispatcher.add_handler(MessageHandler(Filters.text('Main menu'),start))
 
 updater.start_polling()
 updater.idle()
