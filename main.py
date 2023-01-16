@@ -39,8 +39,8 @@ def contact(update: Update, context: CallbackContext):
     chat_id = update.message.chat.id
 
     keyboar = InlineKeyboardMarkup([
-        [InlineKeyboardButton(text='📞 Phone number',callback_data='number')],
-        [InlineKeyboardButton(text='📍 Location',callback_data='location')],
+        [InlineKeyboardButton(text='📞 Phone number',callback_data='number'),InlineKeyboardButton(text='📧 Email',callback_data='email')],
+        [InlineKeyboardButton(text='📍 Location',callback_data='location'),InlineKeyboardButton(text='📌 Address',callback_data='address')],
         # [InlineKeyboardButton(text='📞 Phone number',url='txt')]
         
     ])
@@ -57,9 +57,19 @@ def query(update: Update, context: CallbackContext):
     data = query.data
     bot = context.bot
     if data=='number':
-        bot.sendMessage(text='+123456',chat_id=chat_id)
+        phone_1 ='+998661234567'
+        phone_2 ='+998661234567'
+        text = f'Our phone numbers:\n{phone_1}\n{phone_2}'
+        bot.sendMessage(text=text,chat_id=chat_id)
+    elif data=='email':
+        email = 'Our email: smartphone@gmail.com'
+        bot.sendMessage(text=email,chat_id=chat_id)
+        
+    elif data=='address':
+        address = 'Our address: Samarkand, Uzbekistan'
+        bot.sendMessage(text=address,chat_id=chat_id)
 
-    if data=='location':
+    elif data=='location':
         # 39.644053, 66.973233
 
         lat = 39.644053
