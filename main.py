@@ -88,12 +88,12 @@ def photo(update: Update, context: CallbackContext):
 def shop(update: Update, context: CallbackContext):
     chat_id = update.message.chat.id
 
-    iphone = InlineKeyboardButton(text='Iphone',callback_data='phone Apple')
-    samsung = InlineKeyboardButton(text='Samsung',callback_data='phone Samsung')
-    huawei = InlineKeyboardButton(text='Huawei',callback_data='phone Huawei')
-    xiaomi = InlineKeyboardButton(text='Redmi',callback_data='phone Redmi')
-    vivo = InlineKeyboardButton(text='Vivo',callback_data='phone Vivo')
-    oppo = InlineKeyboardButton(text='Oppo',callback_data='phone Oppo')
+    iphone = InlineKeyboardButton(text='Iphone',callback_data='phone_list Apple')
+    samsung = InlineKeyboardButton(text='Samsung',callback_data='phone_list Samsung')
+    huawei = InlineKeyboardButton(text='Huawei',callback_data='phone_list Huawei')
+    xiaomi = InlineKeyboardButton(text='Redmi',callback_data='phone_list Redmi')
+    vivo = InlineKeyboardButton(text='Vivo',callback_data='phone_list Vivo')
+    oppo = InlineKeyboardButton(text='Oppo',callback_data='phone_list Oppo')
 
     # Define keyboard
     keyboar = InlineKeyboardMarkup([
@@ -107,7 +107,7 @@ def shop(update: Update, context: CallbackContext):
 def phone(update: Update, context: CallbackContext):
     query = update.callback_query
     chat_id = query.message.chat_id
-    data,brand = query.data.split()
+    data,index = query.data.split()
 
     bot = context.bot
     phone = db.getPhone(brand)
@@ -128,13 +128,14 @@ def phone_list(update: Update, context: CallbackContext):
     query = update.callback_query
     chat_id = query.message.chat_id
     data,brand = query.data.split()
+
     phone_list =db.get_phone_list(brand)
-    phone = db.getPhone(brand)
+
     bot = context.bot
     keyboard = []
     row = []
     for phone in phone_list:
-        row.append(InlineKeyboardButton(text=phone,callback_data=f'phone {0}'))
+        row.append(InlineKeyboardButton(text=phone,callback_data=f'phone {phone}'))
         if len(row)==10:
             keyboard.append(row)
             row = []
@@ -152,7 +153,7 @@ updater.dispatcher.add_handler(MessageHandler(Filters.text('🛍 Shop'),shop))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📝 About'),about))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📞 Contact'),contact))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('Main menu'),start))
-updater.dispatcher.add_handler(CallbackQueryHandler(phone_list,pattern='phone'))
+updater.dispatcher.add_handler(CallbackQueryHandler(phone_list,pattern='phone_list'))
 updater.dispatcher.add_handler(CallbackQueryHandler(query))
 
 updater.start_polling()
