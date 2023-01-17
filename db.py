@@ -17,17 +17,20 @@ class DB:
         return:
             dict
         """
+        phone = self.data[brand]['2']
         data = {
-            'model':'',
-            'color':'',
-            'ram':'',
-            'price':'',
-            'memory':'',
-            'image':'',
+            'model':phone['name'],
+            'color':phone['color'],
+            'ram':phone['RAM'],
+            'price':phone['price'],
+            'memory':phone['memory'],
+            'image':phone['img_url'],
         }
+        return data
 
         
 
-db = DB('db.json')
-print(db.path)
-print(db.data)
+# db = DB('db.json')
+# print(db.getPhone('Apple'))
+
+
