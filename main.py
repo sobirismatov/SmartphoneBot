@@ -118,19 +118,30 @@ def phone(update: Update, context: CallbackContext):
     memory = phone['memory']
     img = phone['image']
     text = f'Phone model: {model}\nColor: {color}\nRAM: {ram}\nPrice: {price}\nMemory: {memory}'
-    bot.sendPhoto(chat_id=chat_id,photo=img,caption=text)
-
-
-
-    
-    
-        
-
-        
+    bot.sendPhoto(chat_id=chat_id,photo=img,caption=text)       
 
 
     query.answer('Phone')
     print(brand)
+
+def phone_list(update: Update, context: CallbackContext):
+    query = update.callback_query
+    chat_id = query.message.chat_id
+    data,brand = query.data.split()
+    phone_list =db.get_phone_list(brand)
+    phone = db.getPhone(brand)
+    bot = context.bot
+    keyboard = []
+    row = []
+    for phone in phone_list:
+        row.append(InlineKeyboardButton(text=phone,callback_data=f'phone {0}'))
+        if len(row)==10:
+            keyboard.append(row)
+            row = []
+        
+
+    keyboar = InlineKeyboardMarkup(keyboard)
+    bot.sendMessage(chat_id=chat_id,text='Choose a phone',reply_markup=keyboar)
 
 updater = Updater(token=TOKEN)
 
@@ -141,7 +152,7 @@ updater.dispatcher.add_handler(MessageHandler(Filters.text('🛍 Shop'),shop))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📝 About'),about))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📞 Contact'),contact))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('Main menu'),start))
-updater.dispatcher.add_handler(CallbackQueryHandler(phone,pattern='phone'))
+updater.dispatcher.add_handler(CallbackQueryHandler(phone_list,pattern='phone'))
 updater.dispatcher.add_handler(CallbackQueryHandler(query))
 
 updater.start_polling()
