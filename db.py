@@ -27,4 +27,7 @@ class DB:
         }
 
         
-  
+
+db = DB('db.json')
+print(db.path)
+print(db.data)
