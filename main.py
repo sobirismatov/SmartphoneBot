@@ -107,10 +107,10 @@ def shop(update: Update, context: CallbackContext):
 def phone(update: Update, context: CallbackContext):
     query = update.callback_query
     chat_id = query.message.chat_id
-    data,index = query.data.split()
+    data,brand,index = query.data.split()
 
     bot = context.bot
-    phone = db.getPhone(brand)
+    phone = db.getPhone(brand,index)
     model = phone['model']
     color = phone['color']
     ram = phone['ram']
@@ -122,7 +122,7 @@ def phone(update: Update, context: CallbackContext):
 
 
     query.answer('Phone')
-    print(brand)
+
 
 def phone_list(update: Update, context: CallbackContext):
     query = update.callback_query
@@ -135,7 +135,7 @@ def phone_list(update: Update, context: CallbackContext):
     keyboard = []
     row = []
     for phone in phone_list:
-        row.append(InlineKeyboardButton(text=phone,callback_data=f'phone {phone}'))
+        row.append(InlineKeyboardButton(text=phone,callback_data=f'phone {brand} {phone}'))
         if len(row)==10:
             keyboard.append(row)
             row = []
@@ -154,6 +154,7 @@ updater.dispatcher.add_handler(MessageHandler(Filters.text('📝 About'),about))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📞 Contact'),contact))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('Main menu'),start))
 updater.dispatcher.add_handler(CallbackQueryHandler(phone_list,pattern='phone_list'))
+updater.dispatcher.add_handler(CallbackQueryHandler(phone,pattern='phone'))
 updater.dispatcher.add_handler(CallbackQueryHandler(query))
 
 updater.start_polling()
