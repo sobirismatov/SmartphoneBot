@@ -80,11 +80,16 @@ def query(update: Update, context: CallbackContext):
     print(data)
     
 
-
+def photo(update: Update, context: CallbackContext):
+    chat_id = update.message.chat.id        
+    bot = context.bot
+    bot.sendMessage(chat_id=chat_id,text='Photo qabul qilindi')
 
 updater = Updater(token=TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start',start))
+# Add handler for photo message
+updater.dispatcher.add_handler(MessageHandler(Filters.photo,photo))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📝 About'),about))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📞 Contact'),contact))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('Main menu'),start))
