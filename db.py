@@ -28,9 +28,17 @@ class DB:
         }
         return data
 
+    def get_phone_list(self,brend):
+        """
+        Return phone list
+        """
+        phone = self.data[brend]
+        return list(phone.keys())
+
         
 
 # db = DB('db.json')
 # print(db.getPhone('Apple'))
+# print(db.get_phone_list('Apple'))
 
 
