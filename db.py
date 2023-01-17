@@ -9,7 +9,7 @@ class DB:
             self.data = json.load(f)
 
 
-    def getPhone(self,brand):
+    def getPhone(self,brand,idx):
         """
         Return phone data by brand
         args:
@@ -17,7 +17,7 @@ class DB:
         return:
             dict
         """
-        phone = self.data[brand]['2']
+        phone = self.data[brand][idx]
         data = {
             'model':phone['name'],
             'color':phone['color'],
