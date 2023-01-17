@@ -1,10 +1,10 @@
 from telegram.ext import Updater,CommandHandler,CallbackContext,MessageHandler,Filters,CallbackQueryHandler
 from telegram import Update,ReplyKeyboardMarkup,KeyboardButton,InlineKeyboardMarkup,InlineKeyboardButton
 import os
-
+from db import DB
 # get token from env
 TOKEN = os.environ['TOKEN']
-
+db = DB('db.json')
 
 
 def start(update: Update, context: CallbackContext):
@@ -88,12 +88,12 @@ def photo(update: Update, context: CallbackContext):
 def shop(update: Update, context: CallbackContext):
     chat_id = update.message.chat.id
 
-    iphone = InlineKeyboardButton(text='Iphone',callback_data='phone iphone')
-    samsung = InlineKeyboardButton(text='Samsung',callback_data='phone samsung')
-    huawei = InlineKeyboardButton(text='Huawei',callback_data='phone huawei')
-    xiaomi = InlineKeyboardButton(text='Xiaomi',callback_data='phone xiaomi')
-    vivo = InlineKeyboardButton(text='Vivo',callback_data='phone vivo')
-    oppo = InlineKeyboardButton(text='Oppo',callback_data='phone oppo')
+    iphone = InlineKeyboardButton(text='Iphone',callback_data='phone Apple')
+    samsung = InlineKeyboardButton(text='Samsung',callback_data='phone Samsung')
+    huawei = InlineKeyboardButton(text='Huawei',callback_data='phone Huawei')
+    xiaomi = InlineKeyboardButton(text='Redmi',callback_data='phone Redmi')
+    vivo = InlineKeyboardButton(text='Vivo',callback_data='phone Vivo')
+    oppo = InlineKeyboardButton(text='Oppo',callback_data='phone Oppo')
 
     # Define keyboard
     keyboar = InlineKeyboardMarkup([
@@ -110,15 +110,20 @@ def phone(update: Update, context: CallbackContext):
     data,brand = query.data.split()
 
     bot = context.bot
-    if brand=='iphone':
-        model= 'iPhone XR'
-        color = 'Black'
-        ram= '4GB'
-        memory= '64GB'
-        price = '400$'
-        img_url ='https://images-na.ssl-images-amazon.com/images/I/51qBzX0pGYL._SL1000_.jpg'
-        text = f'Phone model: {model}\nColor: {color}\nRAM: {ram}\nMemory: {memory}\nPrice: {price}'
-        bot.sendPhoto(chat_id=chat_id,caption=text,photo=img_url)
+    phone = db.getPhone(brand)
+    model = phone['model']
+    color = phone['color']
+    ram = phone['ram']
+    price = phone['price']
+    memory = phone['memory']
+    img = phone['image']
+    text = f'Phone model: {model}\nColor: {color}\nRAM: {ram}\nPrice: {price}\nMemory: {memory}'
+    bot.sendPhoto(chat_id=chat_id,photo=img,caption=text)
+
+
+
+    
+    
         
 
         
