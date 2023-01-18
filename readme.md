@@ -22,6 +22,21 @@ This is a bot for a smartphone shop. Using telegram bot API, it can be used to o
 - [x] User can view phone number
 - [x] User can view address
 
+## Features of the bot
+
+1. Product browsing: The user can browse through the products and view the specifications of each product.
+
+1. Cart: The user can add products to the cart and view the cart. The user can also clear the cart.
+
+1. Contact information: The user can view the contact information of the shop.
+
+1. About information: The user can view the about information of the shop.
+
+1. Location: The user can view the location of the shop.
+
+1. Email: The user can view the email of the shop.
+
+1. Phone number: The user can view the phone number of the shop.
 
 ## Requirements
 
@@ -75,3 +90,27 @@ This is a bot for a smartphone shop. Using telegram bot API, it can be used to o
    - View Items
    - Clear Cart
    - Checkout (Order)
+
+
+## Structure of the bot
+
+- The bot will have the following handlers:
+    - start
+    - about
+    - contact
+    - products
+    - products_by_brand
+    - cart
+    - cancel
+
+- The bot will have the following functions:
+
+   
+## List of tasks
+
+- Start handler: The bot will send a welcome message and a main menu when the user starts the bot.
+
+- Main menu.
+The main menu will have 4 buttons: View Products, View Cart, Contact Us, About Us.
+
+
