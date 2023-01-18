@@ -1,0 +1,21 @@
+{
+    "cart": [
+        {
+            "id": 1,
+            "brand": "Apple",
+            "model": "iPhone 6"
+        },
+        {
+            "brand": "Redmi",
+            "model": "Redmi 9"
+        },
+        {
+            "brand": "Redmi",
+            "model": "Redmi 9"
+        },
+        {
+            "brand": "Redmi",
+            "model": "Redmi 9"
+        }
+    ]
+}
