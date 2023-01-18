@@ -121,7 +121,7 @@ def phone(update: Update, context: CallbackContext):
     img = phone['image']
     text = f'Phone model: {model}\nColor: {color}\nRAM: {ram}\nPrice: {price}\nMemory: {memory}'
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton(text='🛒 add Cart',callback_data=f'add_cart:{brand}:{model}')],
+        [InlineKeyboardButton(text='🛒 add Cart',callback_data=f'add_cart:{brand}:{index}')],
     ])
     bot.sendPhoto(chat_id=chat_id,photo=img,caption=text,reply_markup=keyboard)       
 
@@ -151,12 +151,12 @@ def phone_list(update: Update, context: CallbackContext):
 def add_cart(update: Update, context: CallbackContext):
     query = update.callback_query
     chat_id = query.message.chat_id
-    data,brand,model = query.data.split(':')
+    data,brand,index = query.data.split(':')
     
    
     bot = context.bot
     bot.sendMessage(chat_id=chat_id,text='Added to cart')
-    cart.add(brand=brand,model=model)
+    cart.add(brand=brand,model_id=index)
 updater = Updater(token=TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start',start))
