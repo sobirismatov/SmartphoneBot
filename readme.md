@@ -67,8 +67,8 @@ This is a bot for a smartphone shop. Using telegram bot API, it can be used to o
 
 1. Cart menu
 
-    - 📦 Cart
-    - 📝 Order
+    - 🛒 Cart
+    - 📦 Order
     - 📝 Clear cart
 
 1. View Products
