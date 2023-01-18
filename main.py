@@ -2,9 +2,11 @@ from telegram.ext import Updater,CommandHandler,CallbackContext,MessageHandler,F
 from telegram import Update,ReplyKeyboardMarkup,KeyboardButton,InlineKeyboardMarkup,InlineKeyboardButton
 import os
 from db import DB
+from cartdb import Cart
 # get token from env
 TOKEN = os.environ['TOKEN']
 db = DB('db.json')
+cart = Cart('cartdb.json')
 
 
 def start(update: Update, context: CallbackContext):
@@ -119,7 +121,7 @@ def phone(update: Update, context: CallbackContext):
     img = phone['image']
     text = f'Phone model: {model}\nColor: {color}\nRAM: {ram}\nPrice: {price}\nMemory: {memory}'
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton(text='🛒 add Cart',callback_data='add_cart')],
+        [InlineKeyboardButton(text='🛒 add Cart',callback_data=f'add_cart:{brand}:{model}')],
     ])
     bot.sendPhoto(chat_id=chat_id,photo=img,caption=text,reply_markup=keyboard)       
 
@@ -149,9 +151,12 @@ def phone_list(update: Update, context: CallbackContext):
 def add_cart(update: Update, context: CallbackContext):
     query = update.callback_query
     chat_id = query.message.chat_id
-    data = query.data
+    data,brand,model = query.data.split(':')
+    
+   
     bot = context.bot
     bot.sendMessage(chat_id=chat_id,text='Added to cart')
+    cart.add(brand=brand,model=model)
 updater = Updater(token=TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start',start))

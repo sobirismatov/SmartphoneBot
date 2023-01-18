@@ -14,15 +14,15 @@ class Cart:
             'model':model
         })
         self.save()
-        
+
     def save(self):
         with open(self.path,'w') as file:
             json.dump(self.data,file,indent=4)
 
 
-cart = Cart('cartdb.json')
-cart.add('Redmi','Redmi 9')
-print(cart.data)
+# cart = Cart('cartdb.json')
+# cart.add('Redmi','Redmi 9')
+# print(cart.data)
 
 
         
