@@ -118,7 +118,10 @@ def phone(update: Update, context: CallbackContext):
     memory = phone['memory']
     img = phone['image']
     text = f'Phone model: {model}\nColor: {color}\nRAM: {ram}\nPrice: {price}\nMemory: {memory}'
-    bot.sendPhoto(chat_id=chat_id,photo=img,caption=text)       
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton(text='🛒 add Cart',callback_data='add_cart')],
+    ])
+    bot.sendPhoto(chat_id=chat_id,photo=img,caption=text,reply_markup=keyboard)       
 
 
     query.answer('Phone')
@@ -143,7 +146,12 @@ def phone_list(update: Update, context: CallbackContext):
 
     keyboar = InlineKeyboardMarkup(keyboard)
     bot.sendMessage(chat_id=chat_id,text='Choose a phone',reply_markup=keyboar)
-
+def add_cart(update: Update, context: CallbackContext):
+    query = update.callback_query
+    chat_id = query.message.chat_id
+    data = query.data
+    bot = context.bot
+    bot.sendMessage(chat_id=chat_id,text='Added to cart')
 updater = Updater(token=TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start',start))
@@ -155,6 +163,7 @@ updater.dispatcher.add_handler(MessageHandler(Filters.text('📞 Contact'),conta
 updater.dispatcher.add_handler(MessageHandler(Filters.text('Main menu'),start))
 updater.dispatcher.add_handler(CallbackQueryHandler(phone_list,pattern='phone_list'))
 updater.dispatcher.add_handler(CallbackQueryHandler(phone,pattern='phone'))
+updater.dispatcher.add_handler(CallbackQueryHandler(add_cart,pattern='add_cart'))
 updater.dispatcher.add_handler(CallbackQueryHandler(query))
 
 updater.start_polling()
