@@ -2,45 +2,76 @@
 
 This is a bot for a smartphone shop. Using telegram bot API, it can be used to order a smartphone. It is written in python and uses the python-telegram-bot library.
 
-## Menu map
+## Objectives
 
-### Main menu
+- [x] Create a bot that can be used to order a smartphone
+- [x] Use the telegram bot API
+- [x] Use the python-telegram-bot library
+- [x] Allowing users to easily navigate using menus
+- [x] Using inline keyboards
+- [x] Using callback queries
+- [x] User can view products and specifications
+- [x] User can add products to cart
+- [x] User can view cart
+- [x] User can get the total price of the cart
+- [x] User can clear the cart
+- [x] User can view contact information
+- [x] User can view about information
+- [x] User can view location
+- [x] User can view email
+- [x] User can view phone number
+- [x] User can view address
 
-- 🛍 Shop
-- 📦 Cart
-- 📞 Contact
-- 📝 About
 
-### Contact menu
+## Requirements
 
-- 📞 Phone number
-- 📌 Address
-- 📍 Location
-- 📧 Email
+- Python 3.6 or higher
+- python-telegram-bot library
 
-### About menu
+## Bot menu map
 
-- 📝 About us
-- 📝 About the bot
+1. Main menu
 
-### Cart menu
+    - 🛍 View Products
+    - 📦 View Cart
+    - 📞 Contact Us
+    - 📝 About Us
 
-- 📦 Cart
-- 📝 Order
-- 📝 Clear cart
+1. Contact Us
 
-### Shop menu
+    - 📞 Phone number
+    - 📌 Address
+    - 📍 Location
+    - 📧 Email
 
-- Apple
-- Samsung
-- Xiaomi
-- Huawei
-- Oppo
-- Vivo
+1. About menu
 
-### Under each brand
+    - 📝 Company Information
+    - 📝 Shipping & Returns
+    - 📝 Privacy Policy
 
-- 🌄 Photo
-- 📱 Model
-- 💵 Price
-- 📦 Add to cart
+1. Cart menu
+
+    - 📦 Cart
+    - 📝 Order
+    - 📝 Clear cart
+
+1. View Products
+    - By Brand
+        - Apple
+        - Samsung
+        - Xiaomi
+        - Huawei
+        - Oppo
+        - Vivo
+
+1. Under each brand
+
+    - 🌄 Photo
+    - 📱 Model
+    - 💵 Price
+    - 📦 Add to cart  
+1. View Cart
+   - View Items
+   - Clear Cart
+   - Checkout (Order)
