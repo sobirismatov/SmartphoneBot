@@ -13,7 +13,7 @@ def start(update: Update, context: CallbackContext):
     chat_id = update.message.chat.id
 
     keyboar = ReplyKeyboardMarkup([
-        ['🛍 Shop','📦 Cart'],
+        ['🛍 Shop','🛒 Cart'],
         ['📞 Contact','📝 About']
     ])
     bot = context.bot
@@ -157,12 +157,36 @@ def add_cart(update: Update, context: CallbackContext):
     bot = context.bot
     bot.sendMessage(chat_id=chat_id,text='Added to cart')
     cart.add(brand=brand,model_id=index)
+
+def get_cart(update: Update, context: CallbackContext):
+    chat_id = update.message.chat.id
+    bot = context.bot
+    cart_list = cart.get_cart()
+    if len(cart_list)==0:
+        bot.sendMessage(chat_id=chat_id,text='Cart is empty')
+    else:
+        text = 'Your cart:'
+        for item in cart_list:
+            phone = db.getPhone(item['brand'],item['model_id'])
+            
+            text += f"\n{phone['model']}:\nPrice: {phone['price']}\nMemory: {phone['memory']}\nRAM: {phone['ram']}\nColor: {phone['color']}\n "
+        keyboard = InlineKeyboardMarkup([
+            [InlineKeyboardButton(text='🛒 Buy',callback_data='buy')],
+            [InlineKeyboardButton(text='🛒 Clear cart',callback_data='clear_cart')],
+        ])
+        bot.sendMessage(chat_id=chat_id,text=text,reply_markup=keyboard)
+        
+
+        
+
+            
 updater = Updater(token=TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start',start))
 # Add handler for photo message
 updater.dispatcher.add_handler(MessageHandler(Filters.photo,photo))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('🛍 Shop'),shop))
+updater.dispatcher.add_handler(MessageHandler(Filters.text('🛒 Cart'),get_cart))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📝 About'),about))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('📞 Contact'),contact))
 updater.dispatcher.add_handler(MessageHandler(Filters.text('Main menu'),start))

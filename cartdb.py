@@ -21,6 +21,9 @@ class Cart:
         with open(self.cart_path,'w') as file:
             json.dump(self.data,file,indent=4)
 
+    def get_cart(self):
+        return self.data['cart']
+
 
 # cart = Cart('cartdb.json')
 # cart.add('Redmi','Redmi 9')
